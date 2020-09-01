@@ -3,8 +3,9 @@ import "./Search.css";
 import SearchIcon from "@material-ui/icons/Search";
 import MicIcon from "@material-ui/icons/Mic";
 import { Button } from "@material-ui/core";
-import SelectInput from "@material-ui/core/Select/SelectInput";
 import { useHistory } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { actionTypes } from "../Reducer";
 
 type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 type FormEvent = React.ChangeEvent<HTMLInputElement>;
@@ -16,9 +17,12 @@ interface searchProps {
 function Search(prop: searchProps) {
   const [input, setinput] = useState("");
   const history = useHistory();
+  const [{}, dispatch] = useStateValue();
+
   const search = (e: ButtonEvent) => {
     e.preventDefault();
     history.push("/search");
+    dispatch({ type: actionTypes.SET_SEARCH_TERM, term: input });
   };
   return (
     <form className="search">

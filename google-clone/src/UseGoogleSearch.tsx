@@ -9,7 +9,11 @@ export interface googleItem {
   htmlTitle: string;
   kind: string;
   link: string;
-  pagemap: { metatags: Array<any> };
+  pagemap: {
+    metatags: Array<any>;
+    cse_image: Array<any>;
+    cse_thumbnail: Array<any>;
+  };
   snippet: string;
   title: string;
 }
@@ -42,7 +46,6 @@ const UseGoogleSearch = (term: string) => {
       )
         .then((res) => res.json())
         .then((res: googleResponse) => {
-          console.log(res);
           setData(res);
         });
     };

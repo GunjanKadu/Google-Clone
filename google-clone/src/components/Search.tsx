@@ -17,19 +17,26 @@ interface searchProps {
 function Search(prop: searchProps) {
   const [input, setinput] = useState("");
   const history = useHistory();
-  const [{}, dispatch] = useStateValue();
+  const [{ term }, dispatch] = useStateValue();
 
   const search = (e: ButtonEvent) => {
     e.preventDefault();
     history.push("/search");
     dispatch({ type: actionTypes.SET_SEARCH_TERM, term: input });
   };
+  const getInput = () => {
+    if (term) {
+      return term;
+    } else {
+      return input;
+    }
+  };
   return (
     <form className="search">
       <div className="search__input">
         <SearchIcon className="search__inputIcon" />
         <input
-          value={input}
+          value={getInput()}
           onChange={(e: FormEvent) => setinput(e.target.value)}
         />
         <MicIcon />

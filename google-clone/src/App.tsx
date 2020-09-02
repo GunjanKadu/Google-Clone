@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 
 function App() {
-  console.log(process.env.REACT_APP_API_KEY);
   return (
     <div className="App">
       <Router>

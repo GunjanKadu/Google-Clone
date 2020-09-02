@@ -3,7 +3,7 @@ import { useStateValue } from "../StateProvider";
 import { Link } from "react-router-dom";
 import "./SearchPage.css";
 import Search from "../components/Search";
-import UseGoogleSearch from "../UseGoogleSearch";
+import UseGoogleSearch, { googleItem } from "../UseGoogleSearch";
 import SearchIcon from "@material-ui/icons/Search";
 import DescriptionIcon from "@material-ui/icons/Description";
 import ImageIcon from "@material-ui/icons/Image";
@@ -65,7 +65,31 @@ function SearchPage() {
           </div>
         </div>
       </div>
-      <div className="searchPage__results"></div>
+      {term && (
+        <div className="searchPage__results">
+          <p className="searchPage__resultCount">
+            About {data?.searchInformation.formattedTotalResults} results (
+            {data?.searchInformation.formattedSearchTime} seconds) for Tesla
+          </p>
+          {data?.items.map((item: googleItem) => (
+            <div className="searchPage__result" key={Math.random()}>
+              {item.pagemap?.cse_image?.length > 0 &&
+                item.pagemap?.cse_image[0]?.src && (
+                  <img
+                    className="serachPage__resultImage"
+                    src={item.pagemap?.cse_image[0]?.src}
+                    alt=""
+                  />
+                )}
+              <a href={item.link}>{item.displayLink}</a>
+              <a href={item.link} className="searchPage__resultTitle">
+                <h2>{item.title}</h2>
+              </a>
+              <p className="searchPage__resultSnippet">{item.snippet}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

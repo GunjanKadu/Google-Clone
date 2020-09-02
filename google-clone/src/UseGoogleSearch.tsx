@@ -42,6 +42,7 @@ const UseGoogleSearch = (term: string) => {
       )
         .then((res) => res.json())
         .then((res: googleResponse) => {
+          console.log(res);
           setData(res);
         });
     };
